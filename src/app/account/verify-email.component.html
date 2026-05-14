@@ -1,0 +1,7 @@
+<div class="text-center">
+    <h4 *ngIf="verifying">Verifying email...</h4>
+    <div *ngIf="!verifying">
+        <h4 *ngIf="!failed">Verification successful, you can now <a routerLink="/account/login">login</a>.</h4>
+        <h4 *ngIf="failed">Verification failed, you can also verify your account with the <a routerLink="/account/forgot-password">forgot password</a> page.</h4>
+    </div>
+</div>

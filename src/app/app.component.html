@@ -1,0 +1,13 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="account">
+    <div class="navbar-nav">
+        <a routerLink="/" class="nav-item nav-link">Home</a>
+        <a routerLink="/profile" class="nav-item nav-link">Profile</a>
+        <a routerLink="/admin" *ngIf="account.role === 'Admin'" class="nav-item nav-link">Admin</a>
+        <a (click)="logout()" class="nav-item nav-link" style="cursor: pointer">Logout</a>
+    </div>
+</nav>
+<router-outlet name="subnav"></router-outlet>
+<alert></alert>
+<div class="container pt-4 pb-4">
+    <router-outlet></router-outlet>
+</div>

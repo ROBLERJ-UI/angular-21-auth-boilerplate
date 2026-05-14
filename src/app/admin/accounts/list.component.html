@@ -1,0 +1,33 @@
+<h4>Accounts</h4>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Add Account</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let account of accounts">
+            <td>{{account.title}} {{account.firstName}} {{account.lastName}}</td>
+            <td>{{account.email}}</td>
+            <td>{{account.role}}</td>
+            <td>{{account.isVerified ? 'Verified' : 'Unverified'}}</td>
+            <td style="white-space: nowrap">
+                <a routerLink="edit/{{account.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
+                <button (click)="deleteAccount(account)" class="btn btn-sm btn-danger" [disabled]="account.isDeleting">
+                    <span *ngIf="account.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!account.isDeleting">Delete</span>
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="!accounts">
+            <td colspan="5" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
