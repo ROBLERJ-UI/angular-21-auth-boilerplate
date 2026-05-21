@@ -9,16 +9,18 @@ export class ListComponent implements OnInit {
     constructor(private accountService: AccountService) {}
 
     ngOnInit() {
-        this.accountService.getAll()
-            .subscribe({
-                next: accounts => this.accounts = accounts,
-                error: error => {
-                    console.error('Failed to load accounts:', error);
-                    alert('Failed to load accounts: ' + error);
-                    this.accounts = [];
-                }
-            });
-    }
+    this.accountService.getAll()
+        .subscribe({
+            next: accounts => {
+                console.log('Accounts loaded:', accounts);
+                this.accounts = accounts;
+            },
+            error: error => {
+                console.error('Failed to load accounts:', error);
+                this.accounts = [];
+            }
+        });
+}
 
     deleteAccount(account: any) {
         account.isDeleting = true;
