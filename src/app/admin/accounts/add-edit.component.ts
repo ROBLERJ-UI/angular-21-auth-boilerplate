@@ -61,17 +61,19 @@ export class AddEditComponent implements OnInit {
 
     private createAccount() {
     this.accountService.create(this.form.value)
-            .subscribe({
-                next: () => {
-                    this.alertService.success('Account created successfully', { keepAfterRouteChange: true });
+        .subscribe({
+            next: () => {
+                this.alertService.success('Account created successfully', { keepAfterRouteChange: true });
+                this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
                     this.router.navigate(['/admin/accounts']);
-                },
-                error: (err: any) => {
-                    this.error = err;
-                    this.loading = false;
-                }
-            });
-    }
+                });
+            },
+            error: (err: any) => {
+                this.error = err;
+                this.loading = false;
+            }
+        });
+}
 
     private updateAccount() {
         this.accountService.update(this.id, this.form.value)
