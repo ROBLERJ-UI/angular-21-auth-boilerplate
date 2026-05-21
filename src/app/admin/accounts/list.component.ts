@@ -35,6 +35,7 @@ export class ListComponent implements OnInit {
         this.accountService.delete(account.id)
             .subscribe(() => {
                 this.accounts = this.accounts.filter(x => x.id !== account.id);
+                this.cdr.detectChanges();
             });
     }
 }
