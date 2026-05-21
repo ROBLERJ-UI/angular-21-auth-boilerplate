@@ -1,16 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AccountService } from '@app/_services';
 import { Account } from '@app/_models';
-import { filter } from 'rxjs/operators';
 
 @Component({ standalone: false, templateUrl: 'list.component.html' })
 export class ListComponent implements OnInit {
-    accounts!: Account[];
+    accounts: Account[] = [];
 
     constructor(
         private accountService: AccountService,
-        private router: Router
+        private cdr: ChangeDetectorRef
     ) {}
 
     ngOnInit() {
@@ -21,12 +19,13 @@ export class ListComponent implements OnInit {
         this.accountService.getAll()
             .subscribe({
                 next: accounts => {
-                    console.log('Accounts loaded:', accounts);
                     this.accounts = accounts;
+                    this.cdr.detectChanges();
                 },
                 error: error => {
                     console.error('Failed to load accounts:', error);
                     this.accounts = [];
+                    this.cdr.detectChanges();
                 }
             });
     }
