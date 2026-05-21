@@ -10,8 +10,7 @@ import {
     appInitializer,
     AuthGuard,
     ErrorInterceptor,
-    JwtInterceptor,
-    fakeBackendProvider
+    JwtInterceptor
 } from './_helpers';
 import { AccountService } from './_services';
 
@@ -29,10 +28,7 @@ import { AccountService } from './_services';
     providers: [
         { provide: APP_INITIALIZER, useFactory: appInitializer, deps: [AccountService], multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-
-        // provider used to create fake backend
-        fakeBackendProvider
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
     ],
     bootstrap: [AppComponent]
 })
