@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AccountService, AlertService } from '@app/_services';
@@ -21,7 +21,8 @@ export class ResetPasswordComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private accountService: AccountService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private cdr: ChangeDetectorRef
     ) {}
 
     ngOnInit() {
@@ -35,8 +36,14 @@ export class ResetPasswordComponent implements OnInit {
 
         this.accountService.validateResetToken(this.token)
             .subscribe({
-                next: () => { this.tokenStatus = TokenStatus.Valid; },
-                error: () => { this.tokenStatus = TokenStatus.Invalid; }
+                next: () => { 
+                    this.tokenStatus = TokenStatus.Valid;
+                    this.cdr.detectChanges();
+                },
+                error: () => { 
+                    this.tokenStatus = TokenStatus.Invalid;
+                    this.cdr.detectChanges();
+                }
             });
     }
 
@@ -58,4 +65,4 @@ export class ResetPasswordComponent implements OnInit {
                 }
             });
     }
-}   
+}
