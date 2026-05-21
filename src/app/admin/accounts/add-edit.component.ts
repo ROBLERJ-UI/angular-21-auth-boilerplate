@@ -60,7 +60,7 @@ export class AddEditComponent implements OnInit {
     }
 
     private createAccount() {
-        this.accountService.register(this.form.value)
+    this.accountService.create(this.form.value)
             .subscribe({
                 next: () => {
                     this.alertService.success('Account created successfully', { keepAfterRouteChange: true });

@@ -50,6 +50,10 @@ export class AccountService {
     register(params: any) {
         return this.http.post(`${baseUrl}/register`, params);
     }
+    
+    create(params: any) {
+    return this.http.post(`${baseUrl}`, params);
+    }
 
     verifyEmail(token: string) {
         return this.http.post(`${baseUrl}/verify-email`, { token });
