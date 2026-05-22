@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AccountService } from '@app/_services';
@@ -14,7 +14,8 @@ export class LoginComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private accountService: AccountService
+        private accountService: AccountService,
+        private cdr: ChangeDetectorRef
     ) {}
 
     ngOnInit() {
@@ -39,6 +40,7 @@ export class LoginComponent implements OnInit {
                 error: err => {
                     this.error = err;
                     this.loading = false;
+                    this.cdr.detectChanges();
                 }
             });
     }
